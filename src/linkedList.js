@@ -1,0 +1,153 @@
+import Node from './node.js';
+
+export default class LinkedList {
+    constructor() {}
+
+    #getLast = (node = this.list) => {
+        if (!(this.list instanceof Node)) return undefined;
+        if (node.nextNode === null) return node;
+
+        return this.#getLast(node.nextNode);
+    }
+
+    append = (value) => {
+        if (!(this.list instanceof Node)) {
+            this.list = new Node({ value });
+            return;
+        };
+
+        this.#getLast(this.list).nextNode = new Node({ value });
+    }
+
+    prepend = (value) => {
+        this.list = new Node({ value, nextNode: this.list });
+    }
+
+    size = (node = this.list) => {
+        if (node.nextNode === null) return 1;
+
+        return 1 + this.size(node.nextNode);
+    }
+
+    head = () => {
+        return this.list.value ?? undefined;  
+    }
+
+    tail = () => {
+        return this.#getLast(this.list).value ?? undefined;
+    }
+
+    at = (index) => {
+        if (!(this.list instanceof Node)) return undefined;
+        if (index === 0) return this.head();
+
+        let temp = this.list;
+        let n = 0;
+
+        while(temp.nextNode !== null) {
+            n++;
+            temp = temp.nextNode;
+            
+            if (n === index) break;
+        }
+
+        return index > n ? undefined : temp.value;
+    }
+
+    
+    pop = () => {
+        if (!(this.list instanceof Node)) return undefined;
+        const newHead = this.list.nextNode;
+        const head = this.list;
+
+        head.nextNode = null;
+        this.list = newHead;
+        
+        return head.value;
+    }
+
+    contains = (value, node = this.list) => {
+        if (node.value === value) return true;
+        if (node.nextNode === null) return false;
+
+        return this.contains(value, node.nextNode);
+    }
+
+    findIndex = (value) => {
+        if (value === this.list.value) return 0;
+
+        let temp = this.list;
+        let n = 0;
+
+        while(temp.nextNode !== null) {
+            n++;
+            temp = temp.nextNode;
+            
+            if (temp.value === value) break;
+        }
+
+        return temp.value === value ? n : -1;
+    }
+
+
+    toString = (node = this.list) => {
+        if (!(this.list instanceof Node)) return '';
+        if (node.nextNode === null) return `( ${node.value} ) -> null`;
+
+        return `( ${node.value} ) -> ` + this.toString(node.nextNode);
+    }
+
+    insertAt = (index, ...values) => {
+        if (index < 0 || index > this.size() - 1) throw new RangeError('Error Range Input');
+
+        if (index === 0) {
+            let i = values.length - 1;
+
+            while (i >= 0) {
+                this.prepend(values[i]);
+                i--;
+            }
+        } else {
+            let head = this.list;
+            const next = head.nextNode;
+            head.nextNode = null;
+
+            let i = 0;
+            while (i < values.length) {
+                head.nextNode = new Node({ value: values[i] });
+                head = head.nextNode;
+                i++;
+            }
+            
+            head.nextNode = next;
+        }
+    }
+
+    removeAt = (index) => {
+        if (index < 0 || index >= this.size()) throw new RangeError('Error Range Input');
+        if (!(this.list instanceof Node)) return undefined;
+
+        if (index === 0) {
+            const newHead = this.list.nextNode;
+            const head = this.list;
+
+            head.nextNode = null;
+            this.list = newHead;
+        } else {
+            let temp = this.list;
+            let prev;
+            let n = 0;
+
+            while(temp.nextNode !== null) {
+                if (n === (index - 1)) prev = temp;
+                n++;
+
+                temp = temp.nextNode;
+                if (n === index) break;
+            }
+
+            prev.nextNode = temp.nextNode;
+        }
+        
+    }
+}

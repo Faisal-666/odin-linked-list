@@ -1,0 +1,18 @@
+{
+  "name": "odin-linked-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "penjahat",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@babel/preset-env": "^7.29.7",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.4.2"
+  }
+}
