@@ -129,23 +129,17 @@ export default class LinkedList {
                 }
                 
             } else {
-                let temp;
                 let i = 0;
 
                 while (i < values.length) {
-                    temp = new Node({ value: values[i] });
-                    if (i === 0) {
-                        prev.nextNode = temp;
-                        i++;
-                    };
-
-                    let next = new Node({ value: values[i] });
-                    temp.nextNode = next;
-                    temp = next;
+                    const newNode = new Node({ value: values[i] });
+                    prev.nextNode = newNode;
+                    
+                    prev = newNode;
                     i++;
                 }
 
-                temp.nextNode = head;
+                prev.nextNode = head;
             }
         }
     }

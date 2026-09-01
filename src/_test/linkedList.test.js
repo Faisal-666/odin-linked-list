@@ -164,6 +164,18 @@ describe('LinkedList', () => {
             linkedList.append('1');
             linkedList.append('2');
             linkedList.append('3');
+
+            linkedList.insertAt(2, 'dawg');
+
+            expect(linkedList.size()).toBe(4);
+            expect(linkedList.toString()).toBe('( 1 ) -> ( 2 ) -> ( dawg ) -> ( 3 ) -> null');
+        });
+
+        it('Should insert correctly new node correctly', () => {
+            let linkedList = new LinkedList();
+            linkedList.append('1');
+            linkedList.append('2');
+            linkedList.append('3');
             linkedList.append('4');
             linkedList.append('5');
 
