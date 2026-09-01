@@ -24,17 +24,20 @@ export default class LinkedList {
     }
 
     size = (node = this.list) => {
+        if (!(this.list instanceof Node)) return 0;
         if (node.nextNode === null) return 1;
 
         return 1 + this.size(node.nextNode);
     }
 
     head = () => {
-        return this.list.value ?? undefined;  
+        if (!(this.list instanceof Node)) return undefined;
+        return this.list.value;  
     }
 
     tail = () => {
-        return this.#getLast(this.list).value ?? undefined;
+        if (!(this.list instanceof Node)) return undefined;
+        return this.#getLast(this.list).value;
     }
 
     at = (index) => {
@@ -98,7 +101,7 @@ export default class LinkedList {
     }
 
     insertAt = (index, ...values) => {
-        if (index < 0 || index > this.size() - 1) throw new RangeError('Error Range Input');
+        if (index < 0 || index > this.size()) throw new RangeError('Input Range Error');
 
         if (index === 0) {
             let i = values.length - 1;
@@ -109,22 +112,46 @@ export default class LinkedList {
             }
         } else {
             let head = this.list;
-            const next = head.nextNode;
-            head.nextNode = null;
+            let prev;
 
-            let i = 0;
-            while (i < values.length) {
-                head.nextNode = new Node({ value: values[i] });
+            let n = 0;
+            while (n !== index) {
+                if (n === (index - 1)) prev = head;
                 head = head.nextNode;
-                i++;
+                n++;
             }
             
-            head.nextNode = next;
+            if (head === null) {
+                let i = 0;
+                while (i < values.length) {
+                    this.append(values[i]); 
+                    i++;
+                }
+                
+            } else {
+                let temp;
+                let i = 0;
+
+                while (i < values.length) {
+                    temp = new Node({ value: values[i] });
+                    if (i === 0) {
+                        prev.nextNode = temp;
+                        i++;
+                    };
+
+                    let next = new Node({ value: values[i] });
+                    temp.nextNode = next;
+                    temp = next;
+                    i++;
+                }
+
+                temp.nextNode = head;
+            }
         }
     }
 
     removeAt = (index) => {
-        if (index < 0 || index >= this.size()) throw new RangeError('Error Range Input');
+        if (index < 0 || index >= this.size()) throw new RangeError('Input Range Error');
         if (!(this.list instanceof Node)) return undefined;
 
         if (index === 0) {

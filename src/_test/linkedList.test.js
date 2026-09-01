@@ -34,13 +34,17 @@ describe('LinkedList', () => {
 
     describe('Size method', () => {
         it('Should count all node correctly in linkedlist', () => {
+            expect(new LinkedList().size()).toBe(0);
+        });
+
+        it('Should count all node correctly in linkedlist', () => {
             expect(LL.size()).toBe(4);
         });
     });
 
     describe('Head method', () => {
-        it('Should return undefined when lisst is empty', () => {
-            expect(new LinkedList().head).toBeUndefined;
+        it('Should return undefined when list is empty', () => {
+            expect(new LinkedList().head()).toBeUndefined();
         });
 
         it('Should return head value correctly', () => {
@@ -50,7 +54,7 @@ describe('LinkedList', () => {
 
     describe('Tail method', () => {
         it('Should return undefined when lisst is empty', () => {
-            expect(new LinkedList().tail).toBeUndefined;
+            expect(new LinkedList().tail()).toBeUndefined();
         });
 
         it('Should return value of final node correctly', () => {
@@ -153,6 +157,20 @@ describe('LinkedList', () => {
 
             expect(linkedList.size()).toBe(5);
             expect(linkedList.toString()).toBe('( 1 ) -> ( 10 ) -> ( 11 ) -> ( 2 ) -> ( 3 ) -> null');
+        });
+
+        it('Should insert correctly new node correctly', () => {
+            let linkedList = new LinkedList();
+            linkedList.append('1');
+            linkedList.append('2');
+            linkedList.append('3');
+            linkedList.append('4');
+            linkedList.append('5');
+
+            linkedList.insertAt(3, 'x', 'y');
+
+            expect(linkedList.size()).toBe(7);
+            expect(linkedList.toString()).toBe('( 1 ) -> ( 2 ) -> ( 3 ) -> ( x ) -> ( y ) -> ( 4 ) -> ( 5 ) -> null');
         });
     });
     
