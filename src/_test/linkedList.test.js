@@ -64,11 +64,15 @@ describe('LinkedList', () => {
 
     describe('At method', () => {
         it('Should return undefined when lisst is empty', () => {
-            expect(new LinkedList().at(2)).toBeUndefined;
+            expect(new LinkedList().at(2)).toBeUndefined();
+        });
+
+        it('Should return undefined when lisst is empty and given arg < 0', () => {
+            expect(new LinkedList().at(1)).toBeUndefined();
         });
 
         it('Should return undefined when given index > total node', () => {
-            expect(LL.at(10)).toBeUndefined;
+            expect(LL.at(10)).toBeUndefined();
         });
 
         it('Should return value of node at index n correctly ', () => {
@@ -89,6 +93,10 @@ describe('LinkedList', () => {
     });
 
     describe('Contains method', () => {
+        it('Should returns false with no error if list is empty', () => {
+            expect(new LinkedList().contains('x')).toBe(false);
+        });
+
         it('Should returns true if the passed in value is in the list and otherwise returns false', () => {
             expect(LL.contains('cat')).toBe(true);
             expect(LL.contains('dawg')).toBe(true);
@@ -99,6 +107,10 @@ describe('LinkedList', () => {
     });
     
     describe('findIndex method', () => {
+        it('Should returns undefined with no error when list is empty', () => {
+            expect(new LinkedList().findIndex('some value')).toBeUndefined();
+        });
+        
         it('Should returns -1 when value cant be found int the list', () => {
             expect(LL.findIndex('x')).toBe(-1);
         });
