@@ -78,7 +78,7 @@ export default class LinkedList {
     }
 
     findIndex = (value) => {
-        if (!(this.list instanceof Node)) return undefined;
+        if (!(this.list instanceof Node)) return -1;
         if (value === this.list.value) return 0;
 
         let temp = this.list;
@@ -174,8 +174,3 @@ export default class LinkedList {
         
     }
 }
-
-const LL = new LinkedList();
-// LL.append('cat');
-// LL.append('dawg');
-console.log(LL.findIndex(' '));

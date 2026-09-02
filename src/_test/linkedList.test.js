@@ -107,8 +107,8 @@ describe('LinkedList', () => {
     });
     
     describe('findIndex method', () => {
-        it('Should returns undefined with no error when list is empty', () => {
-            expect(new LinkedList().findIndex('some value')).toBeUndefined();
+        it('Should returns -1 with no error when list is empty', () => {
+            expect(new LinkedList().findIndex('some value')).toBe(-1);
         });
         
         it('Should returns -1 when value cant be found int the list', () => {
